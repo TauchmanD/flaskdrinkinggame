@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{%block title%}Login{%endblock%}
+{%block content%}
+<form method='POST' class="box">
+    <h2>Login</h2>
+    <input type="text" name="username" id="" placeholder="Jméno">
+    <input type="password" name="password" id="" placeholder="Heslo">
+    <input type="submit" value="Login">
+    <a href="./register/">Registrace</a>
+</form>
+
+{%endblock%}

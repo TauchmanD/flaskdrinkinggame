@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
-{%block title%}Home Page{%endblock%}
+{%block title%}{{user.username}}{%endblock%}
 {%block content%}
-<h1 id="nav">D-R-I-N-K</h1>
-
-<a href="./register/">Registrace</a>
+<h2>{{user.username}}</h2>
+<p>Kola: {{user.rounds}}</p>
+<p>Vypito: {{user.drinksDrinked}}</p>
+{%if user.wantDrink%}
+    <p>Chceš pít</p>
+{%else%}
+    <p>Nechceš pít</p>
+{%endif%}
 {%endblock%}

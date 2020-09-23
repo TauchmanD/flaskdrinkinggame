@@ -1,10 +1,11 @@
 {% extends 'base.html'%}
 {% block title%}Register{%endblock%}
 {%block content%}
-    <form method='POST'>
-        <input type="text" name="username" id="" placeholder="username">
-        <input type="password" name="password" id="">
-        <input type="password" name="confirmPass" id="">
-        <input type="submit" value="Submit">
+    <form method='POST' class="box">
+        <h2>Register</h2>
+        <input type="text" name="username" id="" placeholder="Jméno">
+        <input type="password" name="password" id="" placeholder="Heslo">
+        <input type="password" name="confirmPass" placeholder="Heslo Znovu">
+        <input type="submit" value="Register">
     </form>
 {%endblock%}
