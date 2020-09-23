@@ -1,6 +1,7 @@
 from flask import Flask, session, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
+from random import randint
 
 app = Flask(__name__)
 app.secret_key = 'asfdsafsdfadvasfgfhdfhgfasfd'
@@ -69,6 +70,11 @@ def Home():
 			found_user.wantDrink = True
 			db.session.commit()
 	return render_template('home.html', user = found_user)
+
+@app.route('/asdasdgdasdfgsdfgsdbfjghbsdfgzhsdbfgolsdhzfgbdfosgbsdfghzbsdfgziuhboszdfziughbrtoguziadbsogf/', methods = ['GET', 'POST'])
+def adminRound():
+	users = user.query.all()
+	return render_template('admin.html', users = users)
 
 if '__main__' == __name__:
 	db.create_all()
