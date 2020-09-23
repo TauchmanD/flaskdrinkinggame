@@ -36,7 +36,7 @@ def Login():
 		session.permanent = True
 		username = request.form['username']
 		password = request.form['password']
-		found_user = user.query.filter_by(username = username).first()
+		found_user = user.query.filter_by(username = username, password = password).first()
 		if found_user:
 			session['username'] = found_user.username
 			return redirect(url_for('Home'))
@@ -61,6 +61,13 @@ def Register():
 @app.route('/home/', methods=["GET","POST"])
 def Home():
 	found_user = user.query.filter_by(username = session.get('username')).first()
+	if request.method == 'POST':
+		if found_user.wantDrink:
+			found_user.wantDrink = False
+			db.session.commit()
+		else:
+			found_user.wantDrink = True
+			db.session.commit()
 	return render_template('home.html', user = found_user)
 
 if '__main__' == __name__:

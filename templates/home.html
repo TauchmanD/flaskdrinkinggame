@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {%block title%}{{user.username}}{%endblock%}
 {%block content%}
-<h2>{{user.username}}</h2>
-<p>Kola: {{user.rounds}}</p>
-<p>Vypito: {{user.drinksDrinked}}</p>
-{%if user.wantDrink%}
-    <p>Chceš pít</p>
-{%else%}
-    <p>Nechceš pít</p>
-{%endif%}
+<form action="" class="box" method="post">
+    <h2>{{user.username}}</h2>
+    <p>Kola: {{user.rounds}}</p>
+    <p>Vypito: {{user.drinksDrinked}}</p>
+    {%if user.wantDrink%}
+        <input type="submit" value="Nepít">
+    {%else%}
+        <input type="submit" value="Pít">
+    {%endif%}
+</form>
 {%endblock%}
