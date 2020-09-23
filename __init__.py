@@ -13,8 +13,7 @@ app.permanent_session_lifetime = timedelta(minutes=20)
 db = SQLAlchemy(app)
 
 class user(db.Model):
-	_id = db.Column('id', db.Integer(), primary_key=True)
-	username = db.Column(db.String(20), unique=True)
+	username = db.Column(db.String(20), unique=True, primary_key = True)
 	password = db.Column(db.String())
 	rounds = db.Column(db.Integer())
 	drinksDrinked = db.Column(db.Integer())
