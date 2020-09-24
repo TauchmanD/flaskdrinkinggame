@@ -1,11 +1,11 @@
 {% extends 'base.html'%}
-{% block title%}Register{%endblock%}
+{% block title%}Admin Room{%endblock%}
 {%block content%}
-    <p>Jméno - Chce pít - Pije - Otázka - Odpovídá</p>
+    <p>Jméno - Chce pít - Pije - Otázka - Odpověď- Ptá se - Odpovídá - Počet panáků</p>
     {%for user in users%}
-        <p>{{user.username}} - {{user.wantDrink}} - {{user.drinks}} - {{user.question}} - {{user.is_answering}}</p>
+        <p>{{user.username}} - {{user.wantDrink}} - {{user.drinks}} - {{user.question}} - {{user.answer}}- {{user.is_asking}} - {{user.is_answering}} - {{user.drinksDrinked}}</p>
     {%endfor%}
     <form action="" method="post" class="box">
-        <input type="submit" value="Spust KOLO">
+        <input type="submit" value="Refresh">
     </form>
 {%endblock%}

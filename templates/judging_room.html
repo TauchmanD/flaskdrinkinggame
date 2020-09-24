@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{%block title%}Judging Room{%endblock%}
+{%block content%}
+    {% if asker.answer == ''%}
+        <h2>ČEKÁ SE NA ODPOVĚĎ</h2>        
+    {% else %}
+        <form action="" class="box" method="post">
+            <h2>ODPOVĚĎ</h2>
+            <h2>{{asker.answer}}</h2>
+            <input type="radio" name="pit" value="pit">
+            <label for="pit">PIJ</label><br>
+            <input type="radio"  name="pit" value="nepit">
+            <label for="nepit">NEPIJ</label><br>
+            <input type="submit" value="KONEC">
+        </form>
+    {%endif%}
+
+{%endblock%}
