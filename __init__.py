@@ -112,10 +112,17 @@ def answer_room():
 
 @app.route('/home/answer/judge', methods = ['POST', 'GET'])
 def judge_room():
+	usrs = user.query.all()
 	usr = user.query.filter_by(is_answering = True).first()
 	if request.method == 'POST':
 		usr.drinks = 2
 		usr.is_answering = False
+		for usr in usrs:
+			usr.is_asking = False
+			db.session.commit()
+		new_asker = user.query.order_by(func.random()).first()
+		new_asker.is_asking = True
+		db.session.commit()
 		db.session.commit()
 		return redirect(url_for('Home'))
 	return render_template('judge_room.html', user = usr)
@@ -133,29 +140,22 @@ def judging_room():
 			usr.drinks = 0
 		usr.question = ''
 		asker.answer = ''
-		new_round()
 		db.session.commit()
 		return redirect(url_for('Home'))
 	return render_template('judging_room.html', user=usr, asker=asker)
 
 @app.route('/setAsker', methods = ['POST', 'GET'])
 def set_asker():
-	if request.method == 'POST':
+	if request.method == 'POST':		
 		usrs = user.query.all()
 		for usr in usrs:
-			usr.is_asking == False
-		new_asker = user.query.filter_by(username = request.form['asker']).first()
+			usr.is_asking = False
+			db.session.commit()
+		new_asker = user.query.order_by(func.random()).first()
 		new_asker.is_asking = True
 		db.session.commit()
 	return render_template('setAsker.html')
 
-def new_round():
-	usrs = user.query.all()
-	for usr in usrs:
-		usr.is_asking == False
-		new_asker = user.query.order_by(func.random()).first()
-		new_asker.is_asking = True
-		db.session.commit()
 
 
 if '__main__' == __name__:
