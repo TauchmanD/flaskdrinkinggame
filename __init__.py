@@ -2,6 +2,7 @@ from flask import Flask, session, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import timedelta
 from random import randint
+import methods
 
 app = Flask(__name__)
 app.secret_key = 'asfdsafsdfadvasfgfhdfhgfasfd'
@@ -19,16 +20,24 @@ class user(db.Model):
 	drinksDrinked = db.Column(db.Integer())
 	wantDrink = db.Column(db.Boolean())
 	drinks = db.Column(db.Boolean())
-	def __init__(self, username, password, rounds, drinksDrinked, wantDrink, drinks):
+	is_asking = db.Column(db.Boolean())
+	is_answering = db.Column(db.Boolean())
+	answer_drink = db.Column(db.Boolean())
+	question = db.Column(db.String())
+	answer = db.Column(db.String())
+	def __init__(self, username, password, rounds, drinksDrinked, wantDrink, drinks, is_asking, is_answering, answer_drink, question, answer):
 		self.username = username
 		self.password = password
 		self.rounds = rounds
 		self.drinksDrinked = drinksDrinked
 		self.wantDrink = wantDrink
 		self.drinks = drinks
+		self.is_answering = is_answering
+		self.is_asking = is_asking
+		self.answer_drink = answer_drink
+		self.question = question
+		self.answer = answer
 		
-
-
 
 @app.route('/', methods = ['GET','POST'])
 def Login():
@@ -49,7 +58,7 @@ def Register():
 		password = request.form['password']
 		cPassword = request.form['confirmPass']
 		if password == cPassword:
-			usr = user(username, password, 0, 0, False, False)
+			usr = user(username, password, 0, 0, False, False, True, False, False,'','')
 			db.session.add(usr)
 			db.session.commit()
 			return redirect(url_for('Login'))
@@ -74,6 +83,21 @@ def Home():
 def adminRound():
 	users = user.query.all()
 	return render_template('admin.html', users = users)
+
+@app.route('/home/question', methods = ['GET','POST'])
+def question_room():
+	players = user.query.filter_by(wantDrink = True).all()
+	return render_template('question_room.html', players = players)
+@app.route('/home/question/<username>', methods = ['GET','POST'])
+def question(username):
+	usr = user.query.filter_by(username = username).first()
+	usr.is_answering = True
+	db.session.commit()
+	if request.method == 'POST':
+		question = request.form['question']
+		usr.question = question
+		db.session.commit()
+	return render_template('question.html', user = usr)
 
 if '__main__' == __name__:
 	db.create_all()

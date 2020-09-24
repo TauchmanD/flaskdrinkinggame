@@ -6,9 +6,16 @@
     <p>Kola: {{user.rounds}}</p>
     <p>Vypito: {{user.drinksDrinked}}</p>
     {%if user.wantDrink%}
-        <input type="submit" value="Nepít">
+        <input type="submit" value="Nehrát">
     {%else%}
-        <input type="submit" value="Pít">
+        <input type="submit" value="Hrát">
     {%endif%}
 </form>
+{%if user.is_asking%}
+    <a href="./question">Zeptat se</a>
+{%endif%}
+{%if user.is_answering%}
+    <a href="./answer">Odpověděd</a>
+{%endif%}
+
 {%endblock%}

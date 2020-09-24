@@ -1,8 +1,9 @@
 {% extends 'base.html'%}
 {% block title%}Register{%endblock%}
 {%block content%}
+    <p>Jméno - Chce pít - Pije - Otázka - Odpovídá</p>
     {%for user in users%}
-        <p>{{user.username}} - {{user.wantDrink}} - {{user.drinks}}</p>
+        <p>{{user.username}} - {{user.wantDrink}} - {{user.drinks}} - {{user.question}} - {{user.is_answering}}</p>
     {%endfor%}
     <form action="" method="post" class="box">
         <input type="submit" value="Spust KOLO">
