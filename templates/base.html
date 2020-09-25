@@ -11,10 +11,17 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <h1 id="nav">DRINK</h1>
-    <form action=""  method="get">
-        <input type="submit" value="Refresh">
-    </form>
+    <div id='flex-container'>
+        <div class="">
+            <a href="./"><img src="{{ url_for('static', filename='imgs/refresh.png')}}" alt=""></a>
+        </div>
+        <div class="">
+            <h1>DRINK</h1>
+        </div>
+        <div class="">
+            <a href="/leaderboards"><img src="{{ url_for('static', filename='imgs/leaderboards.png')}}" alt=""></a>
+        </div>
+        </div>
     {% block content %}
     {% endblock %}
 </body>

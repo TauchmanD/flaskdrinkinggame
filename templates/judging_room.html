@@ -4,10 +4,12 @@
         <form action="" class="box" method="post">
             <h2>ODPOVĚĎ</h2>
             <h2>{{asker.answer}}</h2>
-            <input type="radio" name="pit" value="pit">
-            <label for="pit">PIJ</label><br>
-            <input type="radio"  name="pit" value="nepit">
-            <label for="nepit">NEPIJ</label><br>
+            <div class="radio-toolbar">
+                <input type="radio" name="pit" id="radio1" value="pit" checked>
+                <label for="radio1">PIJ</label>
+                <input type="radio" id="radio2" name="pit" value="nepit">
+                <label for="radio2">NEPIJ</label>
+            </div>
             <input type="submit" value="KONEC">
         </form>
     

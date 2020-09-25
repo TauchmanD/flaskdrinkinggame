@@ -92,9 +92,6 @@ def question_room():
 	return render_template('question_room.html', players = players)
 
 
-
-
-
 @app.route('/home/<username>', methods = ['POST', 'GET'])
 def judging_room(username):
 	usr = user.query.filter_by(username = username).first()
@@ -115,7 +112,7 @@ def judging_room(username):
 		for usr in usrs:
 			usr.is_asking = False
 			db.session.commit()
-		new_asker = user.query.order_by(func.random()).first()
+		new_asker = user.query.filter_by(wantDrink=True).order_by(func.random()).first()
 		new_asker.is_asking = True
 		db.session.commit()
 		return redirect(url_for('Home'))
@@ -128,11 +125,16 @@ def set_asker():
 		for usr in usrs:
 			usr.is_asking = False
 			db.session.commit()
-		new_asker = user.query.order_by(func.random()).first()
+		new_asker = user.query.filter_by(wantDrink=True).order_by(func.random()).first()
 		new_asker.is_asking = True
 		db.session.commit()
 	return render_template('setAsker.html')
 
+@app.route('/leaderboards')
+def leaderboards():
+	users = user.query.all()
+	leaderboards_users = sorted(users, key=lambda x: x.drinksDrinked, reverse=True)
+	return render_template('leaderboards.html', users = leaderboards_users)
 
 
 if '__main__' == __name__:
