@@ -87,50 +87,19 @@ def adminRound():
 @app.route('/home/question', methods = ['GET','POST'])
 def question_room():
 	players = user.query.filter_by(is_asking = False, wantDrink = True).all()
-	return render_template('question_room.html', players = players)
-@app.route('/home/question/<username>', methods = ['GET','POST'])
-def question(username):
-	usr = user.query.filter_by(username = username).first()
-	usr.is_answering = True
-	db.session.commit()
 	if request.method == 'POST':
-		question = request.form['question']
-		usr.question = question
-		db.session.commit()
 		return redirect(url_for('judging_room'))
-	return render_template('question.html', user = usr)
+	return render_template('question_room.html', players = players)
 
-@app.route('/home/answer', methods = ['POST', 'GET'])
-def answer_room():
-	usr = user.query.filter_by(is_answering = True).first()
+
+
+
+
+@app.route('/home/<username>', methods = ['POST', 'GET'])
+def judging_room(username):
+	usr = user.query.filter_by(username = username).first()
 	asker = user.query.filter_by(is_asking = True).first()
-	if request.method == 'POST':
-		asker.answer = request.form['answer']
-		db.session.commit()
-		return redirect(url_for('judge_room'))
-	return render_template('answer_room.html', user = usr, asker = asker)
-
-@app.route('/home/answer/judge', methods = ['POST', 'GET'])
-def judge_room():
 	usrs = user.query.all()
-	usr = user.query.filter_by(is_answering = True).first()
-	if request.method == 'POST':
-		usr.drinks = 2
-		usr.is_answering = False
-		for usr in usrs:
-			usr.is_asking = False
-			db.session.commit()
-		new_asker = user.query.order_by(func.random()).first()
-		new_asker.is_asking = True
-		db.session.commit()
-		db.session.commit()
-		return redirect(url_for('Home'))
-	return render_template('judge_room.html', user = usr)
-
-@app.route('/home/judge_room', methods = ['POST', 'GET'])
-def judging_room():
-	usr = user.query.filter_by(is_answering = True).first()
-	asker = user.query.filter_by(is_asking = True).first()
 	if request.method == 'POST':
 		if request.form['pit'] == 'pit':
 			usr.drinks = 1
@@ -138,8 +107,16 @@ def judging_room():
 			usr.rounds+=1
 		else:
 			usr.drinks = 0
+			usr.rounds+=1
 		usr.question = ''
 		asker.answer = ''
+		usr.drinks = 2
+		usr.is_answering = False
+		for usr in usrs:
+			usr.is_asking = False
+			db.session.commit()
+		new_asker = user.query.order_by(func.random()).first()
+		new_asker.is_asking = True
 		db.session.commit()
 		return redirect(url_for('Home'))
 	return render_template('judging_room.html', user=usr, asker=asker)

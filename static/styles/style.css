@@ -53,7 +53,7 @@ body{
     display: block;
     margin: 20px auto;
     text-align: center;
-    border: 2px solid #2ecc71;
+    border: 2px solid  #0c8cd9;
     padding: 14px 40px;
     outline: none;
     color: white;
@@ -62,5 +62,5 @@ body{
     cursor: pointer;
 }
 .box input[type="submit"]:hover{
-    background: #2ecc71;
+    background:  #0c8cd9;
 }

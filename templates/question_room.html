@@ -2,7 +2,9 @@
 {%block title%}Question Room{%endblock%}
 {%block content%}
 {%for player in players%}
-    <a href="./question/{{player.username}}">{{player.username}}</a>
+    <form action="" class="" method="post">
+        <a href="./{{player.username}}">{{player.username}}</a>
+    </form>
 {%endfor%}
 
 {%endblock%}

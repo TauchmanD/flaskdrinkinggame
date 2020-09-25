@@ -11,14 +11,8 @@
         <input type="submit" value="Hrát">
     {%endif%}
 </form>
-<form action=""  method="get">
-    <input type="submit" value="Refresh">
-</form>
 {%if user.is_asking%}
     <a href="./question">Zeptat se</a>
-{%endif%}
-{%if user.is_answering%}
-    <a href="./answer">Odpověděd</a>
 {%endif%}
 
 {%endblock%}
